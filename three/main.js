@@ -1,13 +1,12 @@
 import { render } from "sass";
 import * as THREE from "three";
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import * as CameraUtils from 'three/addons/utils/CameraUtils.js';
 
 //scene
 const scene = new THREE.Scene();
-
-// camera
-const camera = new THREE.PerspectiveCamera( 45, window.innerWidth/ window.innerHeight, 1, 1000 );
-camera.position.set(0, 0, 25);
-camera.lookAt( 0, 0, 0);
+const sky = new THREE.TextureLoader().load( 'assets\\sky.jpg' );
+scene.background = sky;
 
 //renderer
 const canvas = document.getElementById("main");
@@ -16,40 +15,47 @@ renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
+// camera 
+const camera = new THREE.PerspectiveCamera( 90, window.innerWidth/ window.innerHeight, 1, 1000 );
+camera.position.set(0, 0, 7);
+camera.lookAt( 0, 0, 0);
+
+// light
+const directionalLight = new THREE.DirectionalLight( 'white', 1 );
+directionalLight.position.set(5, 0, 0);
+const directionalHelper = new THREE.DirectionalLightHelper( directionalLight, 0.3 );
+
+const ambientLight = new THREE.AmbientLight( 'white', 0.5);
+
+scene.add( directionalLight, directionalHelper, ambientLight );
+
+// controls
+const control = new OrbitControls( camera, renderer.domElement ); 
+control.enableDamping = true;
+
 //geometry 
 const cube = new THREE.Mesh(
-    new THREE.BoxGeometry( 1, 1, 1 ),
-    new THREE.MeshBasicMaterial({
-        color: "pink",
-        wireframe: true,
-    })
-)
-cube.position.set(5, 0, 10);
-
-const points = [
-    new THREE.Vector3( - 10, 0, 0 ),
-    new THREE.Vector3( 0, 10, 0 ),
-    new THREE.Vector3( 10, 0, 0 ),
-];
-
-const line = new THREE.Line(
-    new THREE.BufferGeometry().setFromPoints( points ),
-    new THREE.LineBasicMaterial({
+    new THREE.BoxGeometry( 2, 2, 2 ),
+    new THREE.MeshPhysicalMaterial({
         color: "white",
     })
 )
-line.position.set(15, -5, -100);
+cube.position.set(0, 0, 0);
 
-scene.add( cube, line );
+const cube2 = new THREE.Mesh(
+    new THREE.BoxGeometry( 0.5, 0.5, 0.5 ),
+    new THREE.MeshPhysicalMaterial({
+        color: "green",
+    })
+)
+cube2.position.set(2, 0, 0);
+
+scene.add( cube, cube2 );
 
 // animation loop
 function animate() {
-    requestAnimationFrame( animate );
-    
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
-    cube.rotation.z += 0.01;
-    
+    requestAnimationFrame( animate );    
+    control.update();
     renderer.render( scene, camera );
 }
 animate();
