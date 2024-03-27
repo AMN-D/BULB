@@ -18,3 +18,11 @@ main.appendChild(heading);
 
 // bulb
 
+on = "https://i.postimg.cc/VNqpqwwM/on.png";
+off = "https://i.postimg.cc/2SBP5vX0/off.png";
+
+var bulb = document.createElement("img");
+bulb.alt = "bulb image ";
+bulb.src = on;
+
+main.appendChild(bulb);
