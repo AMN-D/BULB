@@ -35,7 +35,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          working-directory: './bulb' 
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -46,7 +45,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload dist folder
-          path: './bulb/dist'
+          path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
