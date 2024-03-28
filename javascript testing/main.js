@@ -8,6 +8,12 @@ body.appendChild(main);
 var heading = document.createElement("h1");
 heading.textContent = "Light Bulb"
 heading.style.cssText = "text-decoration-line: underline; text-decoration-style: wavy; cursor: pointer; color: #121212; font-size: 4rem; text-align: center; transition: all 0.15s ease-in-out; ";
+heading.addEventListener("mouseover", () => {
+  heading.style.color = "#b5916e";
+})
+heading.addEventListener("mouseout", () => {
+  heading.style.color = "#121212";
+})
 main.appendChild(heading);
 
 // bulb
