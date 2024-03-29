@@ -7,7 +7,7 @@ body.appendChild(main);
 
 var heading = document.createElement("h1");
 heading.textContent = "Light Bulb"
-heading.style.cssText = "text-decoration-line: underline; text-decoration-style: wavy; cursor: pointer; color: #121212; font-size: 4rem; text-align: center; transition: all 0.15s ease-in-out; ";
+heading.style.cssText = "text-decoration-line: underline; text-decoration-style: wavy; pointer-event: none; color: #121212; font-size: 4rem; text-align: center; transition: all 0.15s ease-in-out; z-index: 999;";
 heading.addEventListener("mouseover", () => {
   heading.style.color = "#b5916e";
 })
@@ -16,13 +16,24 @@ heading.addEventListener("mouseout", () => {
 })
 main.appendChild(heading);
 
-// bulb
+// Typography
+var backgroundContainer = document.createElement("div");
+backgroundContainer.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; display: flex; justify-content: center; align-item: center;';
+main.appendChild(backgroundContainer);
 
-on = "https://i.postimg.cc/VNqpqwwM/on.png";
+var backgroundText = "LIGHT";
+
+var span = document.createElement("h1");
+span.textContent = backgroundText;
+span.style.cssText = `font-size: 20rem; font-weight: 900; text-align: center; pointer-event: none; color: #f7eee0; position: absolute; margin: 0; top: 17%; left: 15%; z-index: -1; overflow: hidden; transform: rotate(-7deg); text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`;
+backgroundContainer.appendChild(span);
+
+// bulb
+const on = "https://i.postimg.cc/VNqpqwwM/on.png";
 
 var bulb = document.createElement("img");
 bulb.style.filter = "grayscale(0%)"
-bulb.style.cssText = "height: 25rem; cursor: pointer;"
+bulb.style.cssText = "height: 25rem; pointer-event: none; position: absolute; top: 25%;"
 bulb.alt = "bulb image ";
 bulb.src = on;
 
@@ -31,6 +42,8 @@ bulb.addEventListener("click", function() {
     bulb.style.filter = "grayscale(0%)";
     body.style.background = "#f3e7d3";
     heading.style.color = "#121212";
+    span.textContent = "LIGHT";
+    span.style.color = "#f7eee0";
     heading.addEventListener("mouseover", () => {
       heading.style.color = "#b5916e";
     })
@@ -42,6 +55,8 @@ bulb.addEventListener("click", function() {
     bulb.style.filter = "grayscale(100%)";
     body.style.background = "#121212";
     heading.style.color = "#e2e2e2";
+    span.textContent = "DARK";
+    span.style.color = "#C0C0C0";
     heading.addEventListener("mouseover", () => {
       heading.style.color = "#b5916e";
     })
@@ -55,4 +70,5 @@ main.appendChild(bulb);
 
 if( window.innerWidth < 700) {
   heading.style.fontSize = "2.5rem";
+  backgroundContainer.style.cssText = "display: none";
 }
