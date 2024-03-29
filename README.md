@@ -4,6 +4,6 @@
 
 Light Bulb is a webpage powered by Vite and JavaScript, designed to illuminate your browsing experience. With its seamless switching between light and dark modes, you can tailor your environment with just a simple click.
 
-Check it out here: [Light Bulb Demo](https://amn-d.github.io/BULB/)
+Check it out here: [Light Bulb Demo](https://amn-d.github.io/BULB/){:target="_blank"}
 
 Enjoy! 🌟
