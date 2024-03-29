@@ -25,8 +25,34 @@ var backgroundText = "LIGHT";
 
 var span = document.createElement("h1");
 span.textContent = backgroundText;
-span.style.cssText = `font-size: 20rem; font-weight: 900; text-align: center; pointer-event: none; color: #f7eee0; position: absolute; margin: 0; top: 17%; left: 15%; z-index: -1; overflow: hidden; transform: rotate(-7deg); text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`;
+span.style.cssText = `width: 100%; height: 100%; font-size: 20rem; font-weight: 900; text-align: center; pointer-event: none; color: #f7eee0; position: absolute; margin: 0; top: 17%; left: 15%; z-index: -1; overflow: hidden; transform: rotate(-7deg); text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);`;
 backgroundContainer.appendChild(span);
+
+document.addEventListener('mousemove', function(event) {
+  var mouseX = event.clientX;
+  var mouseY = event.clientY;
+
+  var headingRect = span.getBoundingClientRect();
+  var headingCenterX = headingRect.left + headingRect.width / 2;
+  var headingCenterY = headingRect.top + headingRect.height / 2;
+
+  var distanceX = mouseX - headingCenterX;
+  var distanceY = mouseY - headingCenterY;
+
+  var maxDistance = 15;
+  var offsetX = (distanceX / window.innerWidth) * maxDistance;
+  var offsetY = (distanceY / window.innerHeight) * maxDistance;
+
+  var rotation = -7; 
+  var radian = rotation * (Math.PI / 180); 
+  var cos = Math.cos(radian);
+  var sin = Math.sin(radian);
+  var translatedX = cos * offsetX - sin * offsetY;
+  var translatedY = sin * offsetX + cos * offsetY;
+
+  span.style.transform = `translate(${translatedX}px, ${translatedY}px) rotate(${rotation}deg)`;
+});
+
 
 // bulb
 const on = "https://i.postimg.cc/VNqpqwwM/on.png";
